@@ -82,21 +82,55 @@ class BorrowRepositoryTest extends Base {
     @Test
     void countCurrentBorrowedBooksByUser() {
 
-        // TODO
+        Borrow br1 = Fixtures.newBorrow(u1, l1, b1);
+        Borrow br2 = Fixtures.newBorrow(u1, l1, b2);
+        br2.setFinished(true);
+        Borrow br3 = Fixtures.newBorrow(u2, l1, b3);
+
+        entityManager.persist(br1);
+        entityManager.persist(br2);
+        entityManager.persist(br3);
+        entityManager.flush();
+
+        int booksByUser = repository.countCurrentBorrowedBooksByUser(u1.getId());
+        assertThat(booksByUser).isEqualTo(1);
 
     }
 
     @Test
     void countBorrowedBooksByUser() {
 
-        // TODO
+        Borrow br1 = Fixtures.newBorrow(u1, l1, b1);
+        Borrow br2 = Fixtures.newBorrow(u1, l1, b2);
+        Borrow br3 = Fixtures.newBorrow(u2, l1, b3);
+
+        entityManager.persist(br1);
+        entityManager.persist(br2);
+        entityManager.persist(br3);
+        entityManager.flush();
+
+        int booksByUser = repository.countBorrowedBooksByUser(u1.getId());
+        assertThat(booksByUser).isEqualTo(2);
 
     }
 
     @Test
     void foundAllLateBorrow() {
 
-        // TODO
+        Borrow onTime = Fixtures.newBorrow(u1, l1, b1);
+        onTime.setRequestedReturn(Date.from(ZonedDateTime.now().minus(1, ChronoUnit.DAYS).toInstant()));
+        Borrow late1 = Fixtures.newBorrow(u1, l1, b2);
+        late1.setRequestedReturn(Date.from(ZonedDateTime.now().plus(1, ChronoUnit.DAYS).toInstant()));
+        Borrow late2 = Fixtures.newBorrow(u2, l1, b3);
+        late2.setRequestedReturn(Date.from(ZonedDateTime.now().plus(1, ChronoUnit.DAYS).toInstant()));
+
+        entityManager.persist(onTime);
+        entityManager.persist(late1);
+        entityManager.persist(late2);
+        entityManager.flush();
+
+        List<Borrow> borrows = repository.foundAllLateBorrow();
+        assertThat(borrows).containsExactlyInAnyOrder(late1, late2);
 
     }
 

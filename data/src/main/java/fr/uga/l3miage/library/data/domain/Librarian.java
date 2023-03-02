@@ -1,9 +1,14 @@
 package fr.uga.l3miage.library.data.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+
 import java.util.Objects;
 
+@Entity
 public class Librarian extends Person {
 
+    @ManyToOne
     private Librarian manager;
 
     public Librarian getManager() {
@@ -26,4 +31,5 @@ public class Librarian extends Person {
     public int hashCode() {
         return Objects.hash(super.hashCode(), manager);
     }
+
 }
