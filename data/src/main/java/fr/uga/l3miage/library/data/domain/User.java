@@ -1,10 +1,17 @@
 package fr.uga.l3miage.library.data.domain;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
 import java.util.Date;
 import java.util.Objects;
 
-// Attention le mot 'user' est reservé
+@Entity
+@Table(name="users")
 public class User extends Person {
+
+    @Column(nullable = false)
     private Date registered;
     private float lateRatio;
 
