@@ -1,31 +1,15 @@
 package fr.uga.l3miage.library.data.domain;
 
-import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
 public class Borrow {
-
-    @Id
-    @GeneratedValue
     private Long id;
-
-    @ManyToMany
     private List<Book> books;
-
-    @Column(nullable = false)
     private Date start;
-
-    @Column(nullable = false)
     private Date requestedReturn;
-
-    @ManyToOne
     private User borrower;
-
-    @ManyToOne
     private Librarian librarian;
     private boolean finished;
 
@@ -87,11 +71,11 @@ public class Borrow {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Borrow borrow = (Borrow) o;
-        return finished == borrow.finished && Objects.equals(books, borrow.books) && Objects.equals(start, borrow.start) && Objects.equals(requestedReturn, borrow.requestedReturn) && Objects.equals(borrower, borrow.borrower) && Objects.equals(librarian, borrow.librarian);
+        return finished == borrow.finished && Objects.equals(id, borrow.id) && Objects.equals(books, borrow.books) && Objects.equals(start, borrow.start) && Objects.equals(requestedReturn, borrow.requestedReturn) && Objects.equals(borrower, borrow.borrower) && Objects.equals(librarian, borrow.librarian);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(books, start, requestedReturn, borrower, librarian, finished);
+        return Objects.hash(id, books, start, requestedReturn, borrower, librarian, finished);
     }
 }

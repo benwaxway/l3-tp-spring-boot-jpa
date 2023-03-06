@@ -5,9 +5,6 @@ import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Repository
@@ -48,9 +45,8 @@ public class BorrowRepository implements CRUDRepository<String, Borrow> {
      * @return la liste des emprunts en cours
      */
     public List<Borrow> findInProgressByUser(String userId) {
-        return entityManager.createQuery("from Borrow b join b.borrower bb where bb.id=:userId and b.finished=false", Borrow.class)
-                .setParameter("userId", userId)
-                .getResultList();
+        // TODO
+        return null;
     }
 
     /**
@@ -60,10 +56,8 @@ public class BorrowRepository implements CRUDRepository<String, Borrow> {
      * @return le nombre de livre
      */
     public int countBorrowedBooksByUser(String userId) {
-        return entityManager.createQuery("select count(bk) from Borrow b join b.borrower bb join b.books bk where bb.id=:userId", Long.class)
-                .setParameter("userId", userId)
-                .getSingleResult()
-                .intValue();
+        // TODO
+        return 0;
     }
 
     /**
@@ -73,10 +67,8 @@ public class BorrowRepository implements CRUDRepository<String, Borrow> {
      * @return le nombre de livre
      */
     public int countCurrentBorrowedBooksByUser(String userId) {
-        return entityManager.createQuery("select count(bk) from Borrow b join b.borrower bb join b.books bk where bb.id=:userId and b.finished=false", Long.class)
-                .setParameter("userId", userId)
-                .getSingleResult()
-                .intValue();
+        // TODO
+        return 0;
     }
 
     /**
@@ -85,8 +77,8 @@ public class BorrowRepository implements CRUDRepository<String, Borrow> {
      * @return la liste des emprunt en retard
      */
     public List<Borrow> foundAllLateBorrow() {
-        return entityManager.createQuery("from Borrow b where b.finished=false and b.requestedReturn > now()", Borrow.class)
-                .getResultList();
+        // TODO
+        return null;
     }
 
     /**
@@ -96,9 +88,8 @@ public class BorrowRepository implements CRUDRepository<String, Borrow> {
      * @return les emprunt qui sont bientôt en retard
      */
     public List<Borrow> findAllBorrowThatWillLateWithin(int days) {
-        return entityManager.createQuery("from Borrow b where b.finished=false and b.requestedReturn between now() and :date", Borrow.class)
-                .setParameter("date", Date.from(ZonedDateTime.now().plus(days, ChronoUnit.DAYS).toInstant()))
-                .getResultList();
+        // TODO
+        return null;
     }
 
 }

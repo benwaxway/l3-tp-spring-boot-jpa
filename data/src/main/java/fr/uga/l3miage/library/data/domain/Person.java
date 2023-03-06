@@ -1,27 +1,14 @@
 package fr.uga.l3miage.library.data.domain;
 
-import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.Objects;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Person {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-
-    @Enumerated(EnumType.STRING)
     private Gender gender;
-
-    @Column(nullable = false)
     private String firstName;
-
-    @Column(nullable = false)
     private String lastName;
-
     private Date birth;
 
     public enum Gender {
@@ -32,20 +19,13 @@ public abstract class Person {
         return id;
     }
 
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public Person setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     public String getLastName() {
@@ -64,6 +44,14 @@ public abstract class Person {
         this.birth = birth;
     }
 
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,4 +64,3 @@ public abstract class Person {
         return Objects.hash(gender, firstName, lastName, birth);
     }
 }
-
