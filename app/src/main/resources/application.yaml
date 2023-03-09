@@ -1,13 +1,7 @@
 spring:
   datasource:
-    host: 127.0.0.1
-    port: 3306
-    database: library
-    ssl: false
-    url: jdbc:mariadb://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.database}?useSSL=${spring.datasource.ssl}
+    url: jdbc:mariadb:// 127.0.0.1:3306/library
     hikari:
-      connection-timeout: 25000
-      max-lifetime: 280000
       username: admin
       password: changeme
   jpa:
@@ -17,17 +11,5 @@ spring:
         hbm2ddl:
           auto: update
         dialect: org.hibernate.dialect.MariaDBDialect
-        implicit_naming_strategy: component-path
     open-in-view: false
-##spring.datasource.driver-class-name=com.mysql.jdbc.Driver
-##spring.jpa.database=mysql
-#spring.datasource.embedded-database-connection=h2
-##spring.datasource.name=default-ds
-##spring.datasource.url=jdbc:mariadb://localhost:3307/library
-##spring.datasource.username=admin
-##spring.datasource.password=changeme
-#spring.jpa.show-sql=true
-#spring.jpa.open-in-view=false
-#spring.jpa.hibernate.ddl-auto=update
-#spring.data.jpa.repositories.enabled=true
 
