@@ -10,7 +10,7 @@ services:
       MARIADB_PASSWORD: changeme
       MARIADB_ROOT_PASSWORD: changeme
     ports:
-      - "3306:3306"
+      - "3307:3306"
   viz:
     container_name: myadmin
     image: phpmyadmin

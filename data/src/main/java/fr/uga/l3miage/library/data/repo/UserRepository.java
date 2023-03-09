@@ -2,6 +2,7 @@ package fr.uga.l3miage.library.data.repo;
 
 import fr.uga.l3miage.library.data.domain.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,12 +14,8 @@ import java.util.List;
 @Repository
 public class UserRepository implements CRUDRepository<String, User> {
 
-    private final EntityManager entityManager;
-
-    @Autowired
-    public UserRepository(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public User save(User entity) {

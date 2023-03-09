@@ -2,6 +2,7 @@ package fr.uga.l3miage.library.service;
 
 import fr.uga.l3miage.library.data.domain.Author;
 import fr.uga.l3miage.library.data.domain.Book;
+import fr.uga.l3miage.library.data.repo.AuthorRepository;
 import fr.uga.l3miage.library.data.repo.BookRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,12 @@ import java.util.Optional;
 @Transactional
 public class BookServiceImpl implements BookService {
 
-    private final AuthorService authorService;
+    private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
 
     @Autowired
-    public BookServiceImpl(AuthorService authorService, BookRepository bookRepository) {
-        this.authorService = authorService;
+    public BookServiceImpl(AuthorRepository authorRepository, BookRepository bookRepository) {
+        this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
     }
 
@@ -66,7 +67,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Collection<Book> getByAuthor(Long authorId) throws EntityNotFoundException {
-        return authorService.get(authorId).getBooks();
+        return authorRepository.get(authorId).getBooks();
     }
 
     @Override
@@ -76,7 +77,7 @@ public class BookServiceImpl implements BookService {
 
 
     private void bind(Long authorId, Book book) throws EntityNotFoundException {
-        Author author = authorService.get(authorId);
+        Author author = authorRepository.get(authorId);
         author.addBook(book);
         book.addAuthor(author);
     }

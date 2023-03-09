@@ -2,6 +2,7 @@ package fr.uga.l3miage.library.data.repo;
 
 import fr.uga.l3miage.library.data.domain.Book;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,12 +11,8 @@ import java.util.List;
 @Repository
 public class BookRepository implements CRUDRepository<Long, Book> {
 
-    private final EntityManager entityManager;
-
-    @Autowired
-    public BookRepository(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public Book save(Book author) {
